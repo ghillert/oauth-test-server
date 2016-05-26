@@ -1,6 +1,6 @@
-	package com.example;
+package com.example;
 
-	import java.security.Principal;
+import java.security.Principal;
 import java.util.Collections;
 import java.util.Map;
 
@@ -25,28 +25,28 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 	@RequestMapping({"/user", "/me"})
-    public Map<String, String> user(Principal principal) {
-        return Collections.singletonMap("name", principal.getName());
-    }
+	public Map<String, String> user(Principal principal) {
+		return Collections.singletonMap("name", principal.getName());
+	}
 
-    @Configuration
-    @EnableAuthorizationServer
-    protected static class MyOAuth2AuthorizationServerConfiguration extends OAuth2AuthorizationServerConfiguration {
-        @Override
-        public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-            super.configure(security);
-            security.allowFormAuthenticationForClients();
-        }
-    }
+	@Configuration
+	@EnableAuthorizationServer
+	protected static class MyOAuth2AuthorizationServerConfiguration extends OAuth2AuthorizationServerConfiguration {
+		@Override
+		public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+			super.configure(security);
+			security.allowFormAuthenticationForClients();
+		}
+	}
 
-    @Configuration
-    @EnableResourceServer
-    protected static class ResourceServerConfiguration
-            extends ResourceServerConfigurerAdapter {
-        @Override
-        public void configure(HttpSecurity http) throws Exception {
-            http.antMatcher("/me").authorizeRequests().anyRequest().authenticated();
-        }
-    }
+	@Configuration
+	@EnableResourceServer
+	protected static class ResourceServerConfiguration
+			extends ResourceServerConfigurerAdapter {
+		@Override
+		public void configure(HttpSecurity http) throws Exception {
+			http.antMatcher("/me").authorizeRequests().anyRequest().authenticated();
+		}
+	}
 
 }

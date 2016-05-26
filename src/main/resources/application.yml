@@ -1,0 +1,13 @@
+server:
+  port: 9999
+security:
+  user:
+    password: secret9
+  oauth2:
+    client:
+      clientId: myclient
+      clientSecret: mysecret
+      scope: access
+      auto-approve-scopes: '.*'
+    authorization:
+      checkTokenAccess: permitAll()
